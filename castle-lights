@@ -51,8 +51,10 @@ redstone.setOutput("front", true)
 while true do
 	rc = move_unit()
 	if is_floor() then
+		print("hit floor")
 		break
 	elseif not is_light() then
+		print("no lights, reversing")
 		direction = not direction
 	end
 end
