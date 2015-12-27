@@ -51,8 +51,8 @@ redstone.setOutput("front", true)
 while true do
 	rc = move_unit()
 	if is_floor() then
-		break end
-	if not is_light() then
+		break
+	elseif not is_light() then
 		direction = not direction
 	end
 end
