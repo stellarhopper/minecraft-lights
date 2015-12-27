@@ -37,10 +37,10 @@ end
 
 local function move_unit(direction)
 	if direction then
-		print("move_unit: direction: "..direction)
+		print("move_unit: direction: "..tostring(direction))
 		local light = move_fu()
 	else
-		print("move_unit: direction: "..direction)
+		print("move_unit: direction: "..tostring(direction))
 		local light = move_db()
 	end
 	local floor = is_floor()
