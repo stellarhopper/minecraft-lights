@@ -1,18 +1,17 @@
 -- local arg = { ... }
 
 local function move_fu()
-	redstone.setOutput("left", true)
 	turtle.up()
 	turtle.forward()
 end
 
 local function move_db()
-	redstone.setOutput("left", true)
 	turtle.back()
 	turtle.down()
 end
 
 print("Starting light-controlling-space-turtle!")
+redstone.setOutput("left", true)
 move_fu()
 move_fu()
 move_fu()
