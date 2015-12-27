@@ -29,12 +29,18 @@ end
 local function move_db()
 	turtle.back()
 	turtle.down()
+	turtle.turnLeft()
+	local rc = is_light()
+	turtle.turnRight()
+	return rc
 end
 
 local function move_unit()
 	if direction then
+		print("move_unit: direction: "..direction)
 		local light = move_fu()
 	else
+		print("move_unit: direction: "..direction)
 		local light = move_db()
 	end
 	local floor = is_floor()
