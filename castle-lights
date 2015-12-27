@@ -62,6 +62,7 @@ local function check_corner(direction)
 		end
 	else
 		-- wasn't a light, return to original position
+		print("corner test: not a corner")
 		turtle.back()
 		return false
 	end
@@ -77,6 +78,7 @@ local function check_roof()
 				-- we're on the roof!
 				turtle.back()
 				turtle.back()
+				tuerle.down()
 				tuerle.down()
 				return true
 			else
