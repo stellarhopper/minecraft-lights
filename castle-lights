@@ -1,5 +1,18 @@
 -- local arg = { ... }
 
-print("Hello, world")
+local function move_fu()
+	turtle.forward()
+	turtle.up()
+end
+
+local function move_db()
+	turtle.down()
+	turtle.back()
+end
+
+print("Starting light-controlling-space-turtle!")
+move_fu()
+sleep(2)
+move_db()
 
 -- vim:ft=lua
