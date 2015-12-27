@@ -13,7 +13,7 @@ local function is_light()
 end
 
 function is_floor()
-	local rc, blk_type = turtle.inspect()
+	local rc, blk_type = turtle.inspectDown()
 	return rc
 end
 
