@@ -1,8 +1,29 @@
 -- local arg = { ... }
 
+local function is_light()
+	local rc, blk_type = turtle.inspect()
+	if not rc then
+		return rc
+	end
+
+	if string.find(blk_type.name, "illumination.lamp") then
+		return true
+	end
+	return false
+end
+
+function is_floor()
+	local rc, blk_type = turtle.inspect()
+	return rc
+end
+
 local function move_fu()
 	turtle.up()
 	turtle.forward()
+	turtle.turnLeft()
+	local rc = is_light()
+	turtle.turnRight()
+	return rc
 end
 
 local function move_db()
@@ -10,20 +31,30 @@ local function move_db()
 	turtle.down()
 end
 
+local function move_unit()
+	if direction then
+		return move_fu()
+	else
+		return move_db()
+	end
+end
+
+local rc
+-- true = forward
+-- false = backward
+local direction = true
+
 print("Starting light-controlling-space-turtle!")
 redstone.setOutput("left", true)
-move_fu()
-move_fu()
-move_fu()
-move_fu()
-move_fu()
-move_fu()
-sleep(2)
-move_db()
-move_db()
-move_db()
-move_db()
-move_db()
-move_db()
+redstone.setOutput("front", true)
+
+while true do
+	rc = move_unit()
+	if is_floor() then
+		break
+	if not is_light() then
+		direction = not direction
+	end
+end
 
 -- vim:ft=lua
