@@ -1,3 +1,5 @@
-print("Hello, world")
+local arg = { ... }
+
+print("Hello, world"..arg[1])
 
 -- vim:ft=lua
