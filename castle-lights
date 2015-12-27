@@ -1,4 +1,4 @@
-local arg = { ... }
+-- local arg = { ... }
 
 print("Hello, world")
 
