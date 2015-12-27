@@ -1,18 +1,24 @@
 -- local arg = { ... }
 
 local function move_fu()
-	turtle.forward()
+	redstone.setOutput("left", true)
 	turtle.up()
+	turtle.forward()
 end
 
 local function move_db()
-	turtle.down()
+	redstone.setOutput("left", false)
 	turtle.back()
+	turtle.down()
 end
 
 print("Starting light-controlling-space-turtle!")
 move_fu()
+move_fu()
+move_fu()
 sleep(2)
+move_db()
+move_db()
 move_db()
 
 -- vim:ft=lua
