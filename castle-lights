@@ -1,5 +1,5 @@
 local arg = { ... }
 
-print("Hello, world"..arg[1])
+print("Hello, world"..arg[0])
 
 -- vim:ft=lua
