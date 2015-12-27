@@ -8,9 +8,7 @@ local function is_light()
 	end
 
 	a, b = string.find(blk_type.name, ".illumination.lamp")
-	print("lightchk: got find: "..tostring(a).." "..tostring(b))
 	if a then
-		print("lightchk: returning true")
 		return true
 	end
 	return false
@@ -114,7 +112,7 @@ local function move_unit(direction)
 
 	if not light then
 		-- test for corner
-		if chk_corner() then
+		if chk_corner(direction) then
 			return true
 		elseif check_roof() then
 			return false
