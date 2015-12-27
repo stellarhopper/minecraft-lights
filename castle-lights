@@ -9,6 +9,7 @@ local function is_light()
 
 	a, b = string.find(blk_type.name, ".illumination.lamp")
 	if a then
+		print("lightchk: is light")
 		return true
 	end
 	return false
@@ -105,22 +106,22 @@ local function move_unit(direction)
 
 	local light = is_light()
 	if light then
-		return true
+		return true, true
 	end
 
 	if is_floor() then
-		return false
+		return true, false
 	end
 
 	if not light then
 		-- test for corner
 		if check_corner(direction) then
-			return true
+			return true, true
 		elseif check_roof() then
-			return false
+			return true, false
 		else
 			print("BUG: neither corner nor roof")
-			exit()
+			return false, false
 		end
 	end
 end
@@ -134,10 +135,14 @@ redstone.setOutput("left", true)
 redstone.setOutput("front", true)
 
 while true do
-	rc = move_unit(direction)
+	rc, dir = move_unit(direction)
 	if not rc then
-		print("main: reversing")
-		direction = not direction
+		print("stopping")
+		break
+	end
+	if direction ~= dir then
+		print("main: reversing direction to: "..tostring(dir))
+		direction = dir
 	end
 end
 
