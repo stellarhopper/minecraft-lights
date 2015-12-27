@@ -6,7 +6,9 @@ local function is_light()
 		return rc
 	end
 
-	if string.find(blk_type.name, "illumination.lamp") then
+	print("lightchk: got name: "..blk_type.name)
+	a, b = string.find(blk_type.name, "illumination.lamp")
+	if a then
 		return true
 	end
 	return false
