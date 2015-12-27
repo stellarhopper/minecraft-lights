@@ -35,7 +35,7 @@ local function move_db()
 	return rc
 end
 
-local function move_unit()
+local function move_unit(direction)
 	if direction then
 		print("move_unit: direction: "..direction)
 		local light = move_fu()
@@ -56,7 +56,7 @@ redstone.setOutput("left", true)
 redstone.setOutput("front", true)
 
 while true do
-	light, floor = move_unit()
+	light, floor = move_unit(direction)
 	if floor then
 		print("hit floor")
 		break
