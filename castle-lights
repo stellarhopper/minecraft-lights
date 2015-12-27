@@ -21,34 +21,108 @@ function is_floor()
 	return rc
 end
 
-local function move_fu()
-	turtle.up()
-	turtle.forward()
-	turtle.turnLeft()
-	local rc = is_light()
-	turtle.turnRight()
+function is_f_block()
+	local rc, blk_type = turtle.inspect()
 	return rc
 end
 
+local function move_fu()
+	turtle.turnRight()
+	turtle.up()
+	turtle.forward()
+	turtle.turnLeft()
+end
+
 local function move_db()
+	turtle.turnRight()
 	turtle.back()
 	turtle.down()
 	turtle.turnLeft()
-	local rc = is_light()
-	turtle.turnRight()
-	return rc
+end
+
+local function check_corner(direction)
+	turtle.forward()
+	-- if it was a corner, now we should be facing a light
+	if is_light then
+		print("found corner going "..tostring(direction))
+		if direction then
+			-- navigate forward turn
+			turtle.turnRight()
+			turtle.forward()
+			turtle.turnLeft()
+			turtle.forward()
+			turtle.turnLeft()
+			return true
+		else
+			-- navigate reverse turn
+			turtle.turnLeft()
+			turtle.forward()
+			turtle.turnRight()
+			turtle.forward()
+			turtle.turnRight()
+			return true
+		end
+	else
+		-- wasn't a light, return to original position
+		turtle.back()
+		return false
+	end
+end
+
+local function check_roof()
+	turtle.forward()
+	if not is_light then
+		if is_f_block() then
+			turtle.up()
+			tuerle.forward()
+			if is_floor() then
+				-- we're on the roof!
+				turtle.back()
+				turtle.back()
+				tuerle.down()
+				return true
+			else
+				print("BUG: roof check 1 (no roof floor?)")
+				exit()
+			end
+		else
+			print("BUG: roof check 2 (no f_block)")
+			exit()
+		end
+	else
+		print("BUG: roof check 3 (uncaught corner?)")
+		exit()
+	end
+	turtle.back()
 end
 
 local function move_unit(direction)
 	if direction then
-		print("move_unit: direction: "..tostring(direction))
-		local light = move_fu()
+		move_fu()
 	else
-		print("move_unit: direction: "..tostring(direction))
-		local light = move_db()
+		move_db()
 	end
-	local floor = is_floor()
-	return light, floor
+
+	local light = is_light()
+	if light then
+		return true
+	end
+
+	if is_floor() then
+		return false
+	end
+
+	if not light then
+		-- test for corner
+		if chk_corner() then
+			return true
+		elseif check_roof() then
+			return false
+		else
+			print("BUG: neither corner nor roof")
+			exit()
+		end
+	end
 end
 
 -- true = forward
@@ -60,12 +134,9 @@ redstone.setOutput("left", true)
 redstone.setOutput("front", true)
 
 while true do
-	light, floor = move_unit(direction)
-	if floor then
-		print("hit floor")
-		break
-	elseif not light then
-		print("no lights, reversing")
+	rc = move_unit(direction)
+	if not rc then
+		print("main: reversing")
 		direction = not direction
 	end
 end
