@@ -3,6 +3,7 @@
 local function is_light()
 	local rc, blk_type = turtle.inspect()
 	if not rc then
+		print("lightchk: inspect returned: "..tostring(rc))
 		return rc
 	end
 
