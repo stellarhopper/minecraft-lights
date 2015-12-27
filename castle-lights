@@ -33,13 +33,14 @@ end
 
 local function move_unit()
 	if direction then
-		return move_fu()
+		local light = move_fu()
 	else
-		return move_db()
+		local light = move_db()
 	end
+	local floor = is_floor()
+	return light, floor
 end
 
-local rc
 -- true = forward
 -- false = backward
 local direction = true
@@ -49,11 +50,11 @@ redstone.setOutput("left", true)
 redstone.setOutput("front", true)
 
 while true do
-	rc = move_unit()
-	if is_floor() then
+	light, floor = move_unit()
+	if floor then
 		print("hit floor")
 		break
-	elseif not is_light() then
+	elseif not light then
 		print("no lights, reversing")
 		direction = not direction
 	end
