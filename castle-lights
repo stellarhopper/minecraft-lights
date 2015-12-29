@@ -42,7 +42,11 @@ end
 local function check_corner(direction)
 	turtle.forward()
 	-- if it was a corner, now we should be facing a light
-	if is_light then
+	if is_light() then
+		if is_floor() then
+			turtle.back()
+			return false
+		end
 		print("found corner going "..tostring(direction))
 		if direction then
 			-- navigate forward turn
@@ -71,7 +75,7 @@ end
 
 local function check_roof()
 	turtle.forward()
-	if not is_light then
+	if not is_light() then
 		if is_f_block() then
 			turtle.up()
 			tuerle.forward()
