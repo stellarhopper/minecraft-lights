@@ -78,13 +78,13 @@ local function check_roof()
 	if not is_light() then
 		if is_f_block() then
 			turtle.up()
-			tuerle.forward()
+			turtle.forward()
 			if is_floor() then
 				-- we're on the roof!
 				turtle.back()
 				turtle.back()
-				tuerle.down()
-				tuerle.down()
+				turtle.down()
+				turtle.down()
 				return true
 			else
 				print("BUG: roof check 1 (no roof floor?)")
