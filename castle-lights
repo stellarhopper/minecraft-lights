@@ -81,6 +81,7 @@ local function check_roof()
 			turtle.forward()
 			if is_floor() then
 				-- we're on the roof!
+				print("on roof")
 				turtle.back()
 				turtle.back()
 				turtle.down()
