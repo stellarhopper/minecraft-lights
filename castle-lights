@@ -9,7 +9,6 @@ local function is_light()
 
 	a, b = string.find(blk_type.name, ".illumination.lamp")
 	if a then
-		print("lightchk: is light")
 		return true
 	end
 	return false
@@ -47,7 +46,6 @@ local function check_corner(direction)
 			turtle.back()
 			return false
 		end
-		print("found corner going "..tostring(direction))
 		if direction then
 			-- navigate forward turn
 			turtle.turnRight()
@@ -67,7 +65,6 @@ local function check_corner(direction)
 		end
 	else
 		-- wasn't a light, return to original position
-		print("corner test: not a corner")
 		turtle.back()
 		return false
 	end
@@ -81,7 +78,6 @@ local function check_roof()
 			turtle.forward()
 			if is_floor() then
 				-- we're on the roof!
-				print("on roof")
 				turtle.back()
 				turtle.down()
 				turtle.back()
@@ -107,10 +103,8 @@ end
 
 local function move_unit(direction)
 	if direction then
-		print("moving in: "..tostring(direction))
 		move_fu()
 	else
-		print("moving in: "..tostring(direction))
 		move_db()
 	end
 
@@ -120,6 +114,11 @@ local function move_unit(direction)
 	end
 
 	if is_floor() then
+		-- if we hit the floor, the last turtle.down() didn't happen
+		-- Move one block to the right to stay on the light
+		turtle.turnRight()
+		turtle.forward()
+		turtle.turnLeft()
 		return true, false
 	end
 
@@ -152,7 +151,6 @@ while true do
 	end
 	if not continue then
 		direction = not direction
-		print("main: reversing direction to: "..tostring(direction))
 	end
 end
 
