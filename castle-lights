@@ -104,8 +104,10 @@ end
 
 local function move_unit(direction)
 	if direction then
+		print("moving in: "..tostring(dir))
 		move_fu()
 	else
+		print("moving in: "..tostring(dir))
 		move_db()
 	end
 
