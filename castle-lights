@@ -89,14 +89,17 @@ local function check_roof()
 				return true
 			else
 				print("BUG: roof check 1 (no roof floor?)")
+				error()
 				exit()
 			end
 		else
 			print("BUG: roof check 2 (no f_block)")
+			error()
 			exit()
 		end
 	else
 		print("BUG: roof check 3 (uncaught corner?)")
+		error()
 		exit()
 	end
 	turtle.back()
