@@ -145,14 +145,14 @@ redstone.setOutput("left", true)
 redstone.setOutput("front", true)
 
 while true do
-	rc, dir = move_unit(direction)
+	rc, continue = move_unit(direction)
 	if not rc then
 		print("stopping")
 		break
 	end
-	if direction ~= dir then
-		print("main: reversing direction to: "..tostring(dir))
-		direction = dir
+	if not continue then
+		direction = not direction
+		print("main: reversing direction to: "..tostring(direction))
 	end
 end
 
