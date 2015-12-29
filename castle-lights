@@ -83,9 +83,12 @@ local function check_roof()
 				-- we're on the roof!
 				print("on roof")
 				turtle.back()
+				turtle.down()
 				turtle.back()
 				turtle.down()
-				turtle.down()
+				turtle.turnRight()
+				turtle.back()
+				turtle.turnLeft()
 				return true
 			else
 				print("BUG: roof check 1 (no roof floor?)")
@@ -107,10 +110,10 @@ end
 
 local function move_unit(direction)
 	if direction then
-		print("moving in: "..tostring(dir))
+		print("moving in: "..tostring(direction))
 		move_fu()
 	else
-		print("moving in: "..tostring(dir))
+		print("moving in: "..tostring(direction))
 		move_db()
 	end
 
